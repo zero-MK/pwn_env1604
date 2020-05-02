@@ -26,9 +26,12 @@ RUN cd ~/tools/pwndbg && ./setup.sh && \
     rm -rf /tools/radare2
 
 RUN mkdir -p ~/source && \
-    cd ~/source && apt source libc6-dev && \
-    rm -rf glibc_* && \
-    cd glibc* && mkdir build_x64 && mkdir build_x86 && \
+    cd ~/source && \
+    wget http://ftp.gnu.org/gnu/glibc/glibc-2.23.tar.gz && \
+    tar xf glibc-2.23.tar.gz && \
+    rm glibc-2.23.tar.gz && \
+    cd glibc-2.23 && \
+    mkdir build_x64 && mkdir build_x86 && \
     mkdir -p /glibc/x64 && mkdir -p /glibc/x86 && \
     cd build_x64 && ../configure --prefix=/glibc/x64 --disable-werror --enable-debug=yes && make -j6 && make install && \
     cd ../build_x86 && ../configure --prefix=/glibc/x86 --disable-werror --enable-debug=yes --host=i686-linux-gnu --build=i686-linux-gnu CC="gcc -m32" CXX="g++ -m32" && make -j6 && make install && \
