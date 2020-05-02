@@ -30,8 +30,8 @@ RUN mkdir -p ~/source && \
     rm -rf glibc_* && \
     cd glibc* && mkdir build_x64 && mkdir build_x86 && \
     mkdir -p /glibc/x64 && mkdir -p /glibc/x86 && \
-    cd build_x64 && ../configure --prefix=/glibc/x64 --disable-werror --enable-debug=yes && make install -j6 && \
-    cd ../build_x86 && ../configure --prefix=/glibc/x86 --disable-werror --enable-debug=yes --host=i686-linux-gnu --build=i686-linux-gnu CC="gcc -m32" CXX="g++ -m32" && make install -j6 && \
+    cd build_x64 && ../configure --prefix=/glibc/x64 --disable-werror --enable-debug=yes && make -j6 && make install && \
+    cd ../build_x86 && ../configure --prefix=/glibc/x86 --disable-werror --enable-debug=yes --host=i686-linux-gnu --build=i686-linux-gnu CC="gcc -m32" CXX="g++ -m32" && make -j6 && make install && \
     cd .. && rm -rf build* && \
     apt clean && apt autoremove
 
